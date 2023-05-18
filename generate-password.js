@@ -1,7 +1,6 @@
 function generatePassword(length, complexity, numberOfPasswords) {
-  if (numberOfPasswords === undefined) {
-    numberOfPasswords = 1;
-  }
+  if (numberOfPasswords === undefined) numberOfPasswords = 1;
+
   const digits = "0123456789";
   const symbols = "!#$%&()*+,-./:;<=>?@[]^_{|}~";
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -14,8 +13,13 @@ function generatePassword(length, complexity, numberOfPasswords) {
       for (let i = 0; i < length; i++) {
         pass += alphabet[Math.floor(Math.random() * alphabet.length)];
       }
-      passwords.push(pass);
-      pass = "";
+      if (passwords.includes(pass)) {
+        numberOfPasswords++;
+        pass = "";
+      } else {
+        passwords.push(pass);
+        pass = "";
+      }
     }
   } else if (complexity === "medium") {
     let digitsAlphabet = digits + alphabet;
@@ -25,8 +29,13 @@ function generatePassword(length, complexity, numberOfPasswords) {
         pass +=
           digitsAlphabet[Math.floor(Math.random() * digitsAlphabet.length)];
       }
-      passwords.push(pass);
-      pass = "";
+      if (passwords.includes(pass)) {
+        numberOfPasswords++;
+        pass = "";
+      } else {
+        passwords.push(pass);
+        pass = "";
+      }
     }
   } else if (complexity === "hard") {
     let symbolsDigitsAlphabet = symbols + digits + alphabet;
@@ -38,11 +47,16 @@ function generatePassword(length, complexity, numberOfPasswords) {
             Math.floor(Math.random() * symbolsDigitsAlphabet.length)
           ];
       }
-      passwords.push(pass);
-      pass = "";
+      if (passwords.includes(pass)) {
+        numberOfPasswords++;
+        pass = "";
+      } else {
+        passwords.push(pass);
+        pass = "";
+      }
     }
   }
-  return passwords;
+  return [...new Set(passwords)];
 }
 
 console.log(generatePassword(10, "easy"));
