@@ -9,11 +9,11 @@ function generatePassword(length, complexity, numberOfPasswords) {
   for (let i = 0; [...new Set(passwords)].length < numberOfPasswords; i++) {
     passwords = [];
     if (complexity === "easy") {
-      items += alphabet;
+      items = alphabet;
     } else if (complexity === "medium") {
-      items += digits + alphabet;
+      items = digits + alphabet;
     } else if (complexity === "hard") {
-      items += symbols + digits + alphabet;
+      items = symbols + digits + alphabet;
     }
     for (let i = 0; i < numberOfPasswords; i++) {
       let pass = "";
@@ -29,5 +29,4 @@ function generatePassword(length, complexity, numberOfPasswords) {
   }
   return [...new Set(passwords)];
 }
-
-console.log(generatePassword(5, "easy", 5000).length);
+console.log(generatePassword(5, "easy", 5000));
