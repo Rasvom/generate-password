@@ -1,6 +1,6 @@
 function generatePassword(length, complexity, numberOfPasswords) {
   if (numberOfPasswords === undefined) numberOfPasswords = 1;
-  
+
   const digits = "0123456789";
   const symbols = "!#$%&()*+,-./:;<=>?@[]^_{|}~";
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -23,8 +23,7 @@ function generatePassword(length, complexity, numberOfPasswords) {
     }
     if (passwords.includes(pass)) {
       numberOfPasswords++;
-      count++
-      
+      count++;
     } else {
       passwords.push(pass);
     }
