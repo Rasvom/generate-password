@@ -6,27 +6,28 @@ function generatePassword(length, complexity, numberOfPasswords) {
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   let items = "";
   let passwords = [];
-  for (let i = 0; [...new Set(passwords)].length < numberOfPasswords; i++) {
-    passwords = [];
-    if (complexity === "easy") {
-      items = alphabet;
-    } else if (complexity === "medium") {
-      items = digits + alphabet;
-    } else if (complexity === "hard") {
-      items = symbols + digits + alphabet;
+  if (complexity === "easy") {
+    items = alphabet;
+  } else if (complexity === "medium") {
+    items = digits + alphabet;
+  } else if (complexity === "hard") {
+    items = symbols + digits + alphabet;
+  }
+  for (let i = 0; i < numberOfPasswords; i++) {
+    let pass = "";
+    for (let i = 0; i < length; i++) {
+      pass += items[Math.floor(Math.random() * items.length)];
     }
-    for (let i = 0; i < numberOfPasswords; i++) {
-      let pass = "";
-      for (let i = 0; i < length; i++) {
-        pass += items[Math.floor(Math.random() * items.length)];
-      }
+    if (passwords.includes(pass)) {
+      numberOfPasswords++;
+      pass = "";
+    } else if (numberOfPasswords === numberOfPasswords + 100) {
+      break;
+    } else {
       passwords.push(pass);
       pass = "";
     }
-    if (i === 10) {
-      break;
-    }
   }
-  return [...new Set(passwords)];
+  return passwords;
 }
 console.log(generatePassword(5, "easy", 5000));
