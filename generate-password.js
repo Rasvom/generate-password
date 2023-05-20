@@ -4,8 +4,10 @@ function generatePassword(length, complexity, numberOfPasswords) {
   const digits = "0123456789";
   const symbols = "!#$%&()*+,-./:;<=>?@[]^_{|}~";
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
   let items = "";
   let passwords = [];
+
   if (complexity === "easy") {
     items = alphabet;
   } else if (complexity === "medium") {
@@ -13,21 +15,20 @@ function generatePassword(length, complexity, numberOfPasswords) {
   } else if (complexity === "hard") {
     items = symbols + digits + alphabet;
   }
+
   for (let i = 0; i < numberOfPasswords; i++) {
     let pass = "";
-    for (let i = 0; i < length; i++) {
+    for (let j = 0; j < length; j++) {
       pass += items[Math.floor(Math.random() * items.length)];
     }
     if (passwords.includes(pass)) {
       numberOfPasswords++;
-      pass = "";
     } else if (numberOfPasswords === numberOfPasswords + 100) {
       break;
     } else {
       passwords.push(pass);
-      pass = "";
     }
   }
   return passwords;
 }
-console.log(generatePassword(5, "easy", 5000));
+console.log(generatePassword(2, "easy", 5000));
